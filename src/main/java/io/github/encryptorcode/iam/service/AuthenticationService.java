@@ -121,7 +121,7 @@ public class AuthenticationService<U extends AuthUser, S extends AuthSession<U>>
 
             Map<String,String> strategyVsIdMap = new HashMap<>();
             strategyVsIdMap.put(strategyName,oauthUser.getOauthId());
-            authUserService.createUser(oauthUser.getEmail(),oauthUser.getName(),oauthUser.getFullName(),strategyVsIdMap,oauthUser.getProfileImage());
+            user = authUserService.createUser(oauthUser.getEmail(),oauthUser.getName(),oauthUser.getFullName(),strategyVsIdMap,oauthUser.getProfileImage());
 
         } else {
             if(!helper.isUserAllowedLogin(user)) {
@@ -218,8 +218,14 @@ public class AuthenticationService<U extends AuthUser, S extends AuthSession<U>>
         authSessionStorage.updateSessionAccessed(sessionIdentifier);
         if(isTimePassed(session.getToken().getExpiryTime())){
             OauthToken token = strategy.regenerateToken(session.getToken().getRefreshToken());
-            token.setRefreshToken(session.getToken().getRefreshToken());
-            authSessionStorage.updateSessionToken(sessionIdentifier,token);
+
+            if(token.getRefreshToken() == null || token.getRefreshToken().isEmpty()){
+                authSessionStorage.deleteSession(sessionIdentifier);
+                return;
+            } else {
+                token.setRefreshToken(session.getToken().getRefreshToken());
+                authSessionStorage.updateSessionToken(sessionIdentifier, token);
+            }
         }
 
         U user = session.getUser();
