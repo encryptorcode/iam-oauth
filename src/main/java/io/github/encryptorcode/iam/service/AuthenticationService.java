@@ -219,7 +219,7 @@ public class AuthenticationService<U extends AuthUser, S extends AuthSession<U>>
         if(isTimePassed(session.getToken().getExpiryTime())){
             OauthToken token = strategy.regenerateToken(session.getToken().getRefreshToken());
 
-            if(token.getRefreshToken() == null || token.getRefreshToken().isEmpty()){
+            if(token.getAccessToken() == null || token.getAccessToken().isEmpty()) {
                 authSessionStorage.deleteSession(sessionIdentifier);
                 return;
             } else {
