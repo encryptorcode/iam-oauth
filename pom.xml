@@ -4,7 +4,7 @@
 
     <groupId>io.github.encryptorcode</groupId>
     <artifactId>iam-oauth</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>Authentication framework for Tomcat</name>
@@ -23,7 +23,14 @@
             <name>Abhay Jatin Doshi</name>
             <email>ajd1996@hotmail.com</email>
             <organization>Encryptor Code</organization>
-            <organizationUrl>https://https;//encryptorcode.wordpress.com</organizationUrl>
+            <organizationUrl>https://encryptorcode.wordpress.com</organizationUrl>
+        </developer>
+        
+        <developer>
+            <name>Arjunasarathy M</name>
+            <email>arjunasarathy.m@gmail.com</email>
+            <organization>Encryptor Code</organization>
+            <organizationUrl>https://encryptorcode.wordpress.com</organizationUrl>
         </developer>
     </developers>
 
@@ -31,7 +38,7 @@
         <connection>scm:git:git://github.com/encryptorcode/iam-oauth.git</connection>
         <developerConnection>scm:git:https://github.com/encryptorcode/iam-oauth.git</developerConnection>
         <url>https://github.com/encryptorcode/iam-oauth/tree/master</url>
-        <tag>iam-oauth-1.0.0</tag>
+        <tag>iam-oauth-1.0.2</tag>
     </scm>
 
     <dependencies>
