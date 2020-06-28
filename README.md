@@ -1,2 +1,0 @@
-## Authentication framework for Tomcat
-An authentication framework which lets you to configure any type of authentication using OAuth (supports login with Google, Facebook, Github etc.) all with user management in your control.
