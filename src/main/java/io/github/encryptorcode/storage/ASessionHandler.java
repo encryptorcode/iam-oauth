@@ -47,7 +47,7 @@ public abstract class ASessionHandler<Session extends ASession, User extends AUs
      * @return unique string for using as identifier for session
      */
     public String generateIdentifier(User user) {
-        String userId = user.getId();
+        String userId = user.getUserId();
         String sessionId = randomString();
         return String.format("%s-%s", userId, sessionId);
     }

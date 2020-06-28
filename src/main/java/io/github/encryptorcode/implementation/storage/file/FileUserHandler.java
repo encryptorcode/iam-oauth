@@ -23,7 +23,7 @@ public abstract class FileUserHandler<User extends AUser> extends AUserHandler<U
     @Override
     public User getUser(String id) {
         Optional<User> user = data.stream()
-                .filter((u) -> id.equals(u.getId()))
+                .filter((u) -> id.equals(u.getUserId()))
                 .findFirst();
         return user.orElse(null);
     }

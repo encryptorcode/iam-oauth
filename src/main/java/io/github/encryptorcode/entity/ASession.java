@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -16,7 +15,6 @@ import java.time.ZonedDateTime;
 @Table(name = "SESSIONS")
 public abstract class ASession implements Cloneable, Serializable {
 
-    @Id
     @Column(name = "IDENTIFIER")
     private String identifier;
 

@@ -48,7 +48,7 @@ public class RedisUserHandler<User extends AUser> extends AUserHandler<User> {
         if (user == null) {
             user = handler.getUserByEmail(email);
             if (user != null) {
-                redisHandlerById.set(user.getId(), user);
+                redisHandlerById.set(user.getUserId(), user);
                 redisHandlerByEmail.set(email, user);
             }
         }
@@ -58,7 +58,7 @@ public class RedisUserHandler<User extends AUser> extends AUserHandler<User> {
     @Override
     public User createUser(User user) throws UserNotAllowedException {
         User createdUser = handler.createUser(user);
-        redisHandlerById.set(createdUser.getId(), createdUser);
+        redisHandlerById.set(createdUser.getUserId(), createdUser);
         redisHandlerByEmail.set(createdUser.getEmail(), createdUser);
         return createdUser;
     }

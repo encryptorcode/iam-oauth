@@ -24,7 +24,7 @@ public class UsersMapper<User extends AUser> implements RecordMapper<Record, Use
             return null;
         }
         User user = constructionHelper.construct();
-        user.setId(record.get(USERS.ID));
+        user.setUserId(record.get(USERS.USER_ID));
         user.setName(record.get(USERS.NAME));
         user.setFullName(record.get(USERS.FULL_NAME));
         user.setEmail(record.get(USERS.EMAIL));

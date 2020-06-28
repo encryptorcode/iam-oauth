@@ -2,7 +2,6 @@ package io.github.encryptorcode.implementation.storage.jdbc;
 
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.exceptions.UserNotAllowedException;
 import io.github.encryptorcode.storage.AUserHandler;
 import org.jooq.DSLContext;
 
@@ -28,7 +27,7 @@ public abstract class JdbcUserHandler<Session extends ASession, User extends AUs
     public User getUser(String id) {
         return context.select()
                 .from(USERS)
-                .where(USERS.ID.eq(id))
+                .where(USERS.USER_ID.eq(id))
                 .fetchOne(configuration.getUsersMapper());
     }
 
@@ -43,13 +42,13 @@ public abstract class JdbcUserHandler<Session extends ASession, User extends AUs
     @Override
     public User createUser(User user) {
         context.insertInto(USERS,
-                USERS.ID,
+                USERS.USER_ID,
                 USERS.NAME,
                 USERS.FULL_NAME,
                 USERS.EMAIL,
                 USERS.PROFILE_IMAGE)
                 .values(
-                        user.getId(),
+                        user.getUserId(),
                         user.getName(),
                         user.getFullName(),
                         user.getEmail(),

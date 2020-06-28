@@ -5,7 +5,6 @@ import io.github.encryptorcode.extra.NoSerialization;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -17,12 +16,10 @@ import java.time.ZonedDateTime;
 @Table(name = "AUTHENTICATION_DETAILS")
 public class AuthenticationDetail implements Cloneable, Serializable {
 
-    @Id
     @SerializedName("user_id")
     @Column(name = "USER_ID")
     private String userId;
 
-    @Id
     @Column(name = "PROVIDER")
     private String provider;
 

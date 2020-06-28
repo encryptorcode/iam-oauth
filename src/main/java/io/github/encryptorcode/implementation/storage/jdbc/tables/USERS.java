@@ -15,8 +15,8 @@ public class USERS extends TableImpl<USERS.USERS_RECORD> {
 
     public static final USERS USERS = new USERS();
 
-    public final TableField<USERS_RECORD, String> ID =
-            createField(DSL.name("id"), SQLDataType.VARCHAR(255).nullable(true), this, "");
+    public final TableField<USERS_RECORD, String> USER_ID =
+            createField(DSL.name("user_id"), SQLDataType.VARCHAR(255).nullable(true), this, "");
     public final TableField<USERS_RECORD, String> NAME =
             createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(true), this, "");
     public final TableField<USERS_RECORD, String> FULL_NAME =

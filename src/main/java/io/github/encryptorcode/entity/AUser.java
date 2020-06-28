@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -15,9 +14,9 @@ import java.io.Serializable;
 @Table(name = "USERS")
 public abstract class AUser implements Cloneable, Serializable {
 
-    @Id
-    @Column(name = "ID")
-    private String id;
+    @SerializedName("user_id")
+    @Column(name = "USER_ID")
+    private String userId;
 
     @Column(name = "NAME")
     private String name;
@@ -33,12 +32,12 @@ public abstract class AUser implements Cloneable, Serializable {
     @Column(name = "PROFILE_IMAGE")
     private String profileImage;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {

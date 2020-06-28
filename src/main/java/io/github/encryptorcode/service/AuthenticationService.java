@@ -65,7 +65,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         // user is already logged in
         User user = getCurrentUser();
         if (user != null) {
-            LOGGER.log(Level.FINE, "Login page requested when the user is already logged in: {0}", new String[]{user.getId()});
+            LOGGER.log(Level.FINE, "Login page requested when the user is already logged in: {0}", new String[]{user.getUserId()});
             if (redirectPath != null) {
                 return redirectPath;
             } else {
@@ -131,7 +131,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
             user = createUser(oauthUser);
             createAuthenticationDetail(provider.id(), user, oauthUser, token);
         } else {
-            AuthenticationDetail authenticationDetail = authenticationHandler.getAuthenticationDetail(user.getId(), provider.id());
+            AuthenticationDetail authenticationDetail = authenticationHandler.getAuthenticationDetail(user.getUserId(), provider.id());
             if (authenticationDetail == null) {
                 if (token.getStatus() != OauthToken.Status.ACCESS_AND_REFRESH) {
                     return provider.getAuthenticationUrl(state, true);
@@ -148,7 +148,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         ZonedDateTime now = ZonedDateTime.now();
         Session session = sessionHandler.constructSession();
         session.setIdentifier(sessionIdentifier);
-        session.setUserId(user.getId());
+        session.setUserId(user.getUserId());
         session.setProviderId(provider.id());
         session.setCreationTime(now);
         session.setExpiryTime(now.plusSeconds(expiryInSeconds));
@@ -213,7 +213,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         }
 
         User user = userHandler.getUser(session.getUserId());
-        AuthenticationDetail detail = authenticationStorage.getAuthenticationDetail(user.getId(), session.getProviderId());
+        AuthenticationDetail detail = authenticationStorage.getAuthenticationDetail(user.getUserId(), session.getProviderId());
         if (isTimePassed(detail.getExpiryTime())) {
             OauthProvider provider = configuration.oauthProviders.get(session.getProviderId());
             OauthToken token = provider.regenerateToken(detail.getRefreshToken());
@@ -229,7 +229,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
 
         AuthenticationThreadLocal.setCurrentSession(session);
         AuthenticationThreadLocal.setCurrentUser(user);
-        LOGGER.log(Level.FINE, "Current user is set to: {0}", new String[]{user.getId()});
+        LOGGER.log(Level.FINE, "Current user is set to: {0}", new String[]{user.getUserId()});
         LOGGER.log(Level.FINE, "Current session id is: {0}", new String[]{sessionIdentifier});
     }
 
@@ -252,13 +252,13 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         user.setProfileImage(oauthUser.getProfileImage());
 
         String userId = userHandler.generateUserId(user);
-        user.setId(userId);
+        user.setUserId(userId);
         return userHandler.createUser(user);
     }
 
     private void createAuthenticationDetail(String providerId, User user, OauthUser oauthUser, OauthToken token) {
         AuthenticationDetail authenticationDetail = new AuthenticationDetail();
-        authenticationDetail.setUserId(user.getId());
+        authenticationDetail.setUserId(user.getUserId());
         authenticationDetail.setProvider(providerId);
         authenticationDetail.setProvidedUserId(oauthUser.getId());
         authenticationDetail.setAccessToken(token.getAccessToken());
