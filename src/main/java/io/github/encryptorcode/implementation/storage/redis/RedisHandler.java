@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Implementation to store Java objects as JSON in a HashMap in redis
- * @param <T>
+ * @param <T> Template
  */
 public class RedisHandler<T> {
 

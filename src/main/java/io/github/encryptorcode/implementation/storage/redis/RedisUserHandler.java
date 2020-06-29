@@ -7,7 +7,7 @@ import io.github.encryptorcode.storage.AUserHandler;
 /**
  * Redis implementation of {@link AUserHandler} using Decorator pattern
  *
- * @param <User>
+ * @param <User> User template
  * @see <a href="https://en.wikipedia.org/wiki/Decorator_pattern">Decorator pattern in Wikipedia</a>
  */
 public class RedisUserHandler<User extends AUser> extends AUserHandler<User> {

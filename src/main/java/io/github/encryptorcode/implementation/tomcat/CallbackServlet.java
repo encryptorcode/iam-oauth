@@ -16,16 +16,18 @@ import java.io.IOException;
  * oauth provider configuration
  *
  * Configure this servlet in web.xml like below
- * <code><pre>
- *     &lt;servlet&gt;
- *         &lt;servlet-name&gt;CallbackServlet&lt;/servlet-name&gt;
- *         &lt;servlet-class&gt;io.github.encryptorcode.implementation.tomcat.CallbackServlet&lt;/servlet-class&gt;
- *     &lt;/servlet&gt;
- *     &lt;servlet-mapping&gt;
- *         &lt;servlet-name&gt;CallbackServlet&lt;/servlet-name&gt;
- *         &lt;servlet-mapping&gt;/auth/callback&lt;/servlet-mapping&gt;
- *     &lt;/servlet-mapping&gt;
- * </pre></code>
+ * <pre>
+ * {@code
+ *     <servlet>
+ *         <servlet-name>CallbackServlet</servlet-name>
+ *         <servlet-class>io.github.encryptorcode.implementation.tomcat.CallbackServlet</servlet-class>
+ *     </servlet>
+ *     <servlet-mapping>
+ *         <servlet-name>CallbackServlet</servlet-name>
+ *         <servlet-mapping>/auth/callback</servlet-mapping>
+ *     </servlet-mapping>
+ * }
+ * </pre>
  */
 public class CallbackServlet extends HttpServlet {
     @Override

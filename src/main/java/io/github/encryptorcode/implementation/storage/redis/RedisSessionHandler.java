@@ -7,8 +7,8 @@ import io.github.encryptorcode.storage.ASessionHandler;
 /**
  * Redis implementation of {@link ASessionHandler} using Decorator pattern
  *
- * @param <Session>
- * @param <User>
+ * @param <Session> Session template
+ * @param <User> User template
  * @see <a href="https://en.wikipedia.org/wiki/Decorator_pattern">Decorator pattern in Wikipedia</a>
  */
 public class RedisSessionHandler<Session extends ASession, User extends AUser> extends ASessionHandler<Session, User> {

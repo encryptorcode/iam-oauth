@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 /**
  * This is the main configuration file, All the core settings for setting up your authentication instance are provided here.
  *
- * @param <Session>
- * @param <User>
+ * @param <Session> Session template
+ * @param <User> User template
  */
 public class AuthenticationConfiguration<Session extends ASession, User extends AUser> {
 

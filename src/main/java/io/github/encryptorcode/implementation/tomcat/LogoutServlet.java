@@ -12,16 +12,18 @@ import java.io.IOException;
  * Logout handling where user is logged out, so clearing cookies and sessions is handled
  *
  * Configure this servlet in web.xml like below
- * <code><pre>
- *     &lt;servlet&gt;
- *         &lt;servlet-name&gt;LogoutServlet&lt;/servlet-name&gt;
- *         &lt;servlet-class&gt;io.github.encryptorcode.implementation.tomcat.LogoutServlet&lt;/servlet-class&gt;
- *     &lt;/servlet&gt;
- *     &lt;servlet-mapping&gt;
- *         &lt;servlet-name&gt;CallbackServlet&lt;/servlet-name&gt;
- *         &lt;servlet-mapping&gt;/logout&lt;/servlet-mapping&gt;
- *     &lt;/servlet-mapping&gt;
- * </pre></code>
+ * <pre>
+ * {@code
+ *     <servlet>
+ *         <servlet-name>LogoutServlet</servlet-name>
+ *         <servlet-class>io.github.encryptorcode.implementation.tomcat.LogoutServlet</servlet-class>
+ *     </servlet>
+ *     <servlet-mapping>
+ *         <servlet-name>CallbackServlet</servlet-name>
+ *         <servlet-mapping>/logout</servlet-mapping>
+ *     </servlet-mapping>
+ * }
+ * </pre>
  */
 public class LogoutServlet extends HttpServlet {
     @Override

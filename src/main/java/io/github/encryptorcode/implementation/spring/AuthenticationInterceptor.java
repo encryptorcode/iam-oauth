@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A simple Interceptor for all requests to validate and set user details in the current thread local <br/>
- * Configure an instance of this in your implementation of {@link WebMvcConfigurer} <br/><br/>
+ * A simple Interceptor for all requests to validate and set user details in the current thread local <br>
+ * Configure an instance of this in your implementation of {@link WebMvcConfigurer} <br><br>
  * We need to make sure {@link AuthenticationService#postProcessRequest(HttpServletRequest, HttpServletResponse)} is called without fail, to clear data stored in current thread before it's re-used for another request.
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {

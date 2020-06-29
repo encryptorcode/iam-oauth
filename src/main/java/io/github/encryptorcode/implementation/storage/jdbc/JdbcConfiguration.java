@@ -14,8 +14,8 @@ import java.sql.Connection;
 /**
  * Configuration class to be extended for setting JDBC configurations
  *
- * @param <Session>
- * @param <User>
+ * @param <Session> Session template
+ * @param <User> User template
  */
 public abstract class JdbcConfiguration<Session extends ASession, User extends AUser> {
 

@@ -13,12 +13,14 @@ import java.io.IOException;
 /**
  * A simple filter for all requests to validate and set user details in the current thread local
  * Add the following xml in your web.xml to configure this filter
- * <code><pre>
- *     &lt;filter&gt;
- *         &lt;filter-name&gt;AuthenticationFilter&lt;/filter-name&gt;
- *         &lt;filter-class&gt;io.github.encryptorcode.implementation.tomcat.AuthenticationFilter&lt;/filter-class&gt;
- *     &lt;/filter&gt;
- * </pre></code>
+ * <pre>
+ * {@code
+ *     <filter>
+ *         <filter-name>AuthenticationFilter</filter-name>
+ *         <filter-class>io.github.encryptorcode.implementation.tomcat.AuthenticationFilter</filter-class>
+ *     </filter>
+ * }
+ * </pre>
  * We need to make sure {@link AuthenticationService#postProcessRequest(HttpServletRequest, HttpServletResponse)} is called without fail, to clear data stored in current thread before it's re-used for another request.
  */
 public class AuthenticationFilter extends HttpFilter {

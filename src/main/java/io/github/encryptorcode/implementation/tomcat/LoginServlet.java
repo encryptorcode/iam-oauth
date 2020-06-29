@@ -12,16 +12,18 @@ import java.io.IOException;
  * Login page, where user is redirected to provider's consent page
  *
  * Configure this servlet in web.xml like below
- * <code><pre>
- *     &lt;servlet&gt;
- *         &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
- *         &lt;servlet-class&gt;io.github.encryptorcode.implementation.tomcat.LoginServlet&lt;/servlet-class&gt;
- *     &lt;/servlet&gt;
- *     &lt;servlet-mapping&gt;
- *         &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
- *         &lt;servlet-mapping&gt;/login&lt;/servlet-mapping&gt;
- *     &lt;/servlet-mapping&gt;
- * </pre></code>
+ * <pre>
+ * {@code
+ *     <servlet>
+ *         <servlet-name>LoginServlet</servlet-name>
+ *         <servlet-class>io.github.encryptorcode.implementation.tomcat.LoginServlet</servlet-class>
+ *     </servlet>
+ *     <servlet-mapping>
+ *         <servlet-name>LoginServlet</servlet-name>
+ *         <servlet-mapping>/login</servlet-mapping>
+ *     </servlet-mapping>
+ * }
+ * </pre>
  */
 public class LoginServlet extends HttpServlet {
     @Override

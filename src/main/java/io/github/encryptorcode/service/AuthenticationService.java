@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 /**
  * This is the core logic used for handling authentication of a user
  *
- * @param <Session>
- * @param <User>
+ * @param <Session> Session template
+ * @param <User> User template
  */
 public class AuthenticationService<Session extends ASession, User extends AUser> {
 
@@ -50,6 +50,15 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
      */
     public User getCurrentUser() {
         return AuthenticationThreadLocal.getCurrentUser();
+    }
+
+    /**
+     * A method to get the current session at any given http request context
+     *
+     * @return Session object
+     */
+    public Session getCurrentSession() {
+        return AuthenticationThreadLocal.getCurrentSession();
     }
 
     /**
