@@ -5,7 +5,6 @@ import io.github.encryptorcode.example.entities.User;
 import io.github.encryptorcode.service.AuthenticationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -16,24 +15,18 @@ public class MainController {
 
     @RequestMapping("/")
     @ResponseBody
-    public String home(
-            @RequestParam(value = "message", required = false) String message
-    ) {
+    public String home() {
         User user = AUTHENTICATION_SERVICE.getCurrentUser();
-        StringBuilder builder = new StringBuilder();
-        if (message != null) {
-            builder.append("<p style='color:red'>").append(message).append("</p>").append(NEW_LINE);
-        }
         if (user != null) {
-            builder.append("<img src=\"").append(user.getProfileImage()).append("\" width=250px height=250px style=\"float: right\">").append(NEW_LINE)
-                    .append("Hello ").append(user.getFullName()).append(",").append(NEW_LINE)
-                    .append("You are logged in using this authentication framework sucessfully.").append(NEW_LINE)
-                    .append("Now, to test logout. <a href=\"/logout\">Click Here</a>");
+            return "<img src=\"" + user.getProfileImage() + "\" width=250px height=250px style=\"float: right\">" + NEW_LINE +
+                    "Hello " + user.getFullName() + "," + NEW_LINE +
+                    "You are logged in using this authentication framework successfully." + NEW_LINE +
+                    "Now, to test logout. <a href=\"/logout\">Click Here</a>";
         } else {
-            builder.append("Authentication Framework has detected that you are not logged in.").append(NEW_LINE)
-                    .append("<a href=\"/login\">Click Here</a> to check the ways in which you can login.");
+            return "Authentication Framework has detected that you are not logged in." + NEW_LINE +
+                    "<a href=\"/login\">Click Here</a> to check the ways in which you can login.";
         }
-        return builder.toString();
+
     }
 
     @RequestMapping("/login")

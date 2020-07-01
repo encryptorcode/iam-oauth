@@ -1,8 +1,8 @@
-package io.github.encryptorcode.example.services;
+package io.github.encryptorcode.example.config;
 
-import io.github.encryptorcode.implementation.oauth.AOauthProviderImpl;
 import io.github.encryptorcode.entity.OauthToken;
 import io.github.encryptorcode.entity.OauthUser;
+import io.github.encryptorcode.implementation.oauth.AOauthProviderImpl;
 import org.json.JSONObject;
 
 import java.time.ZonedDateTime;
