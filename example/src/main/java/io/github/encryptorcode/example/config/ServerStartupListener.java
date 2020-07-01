@@ -3,6 +3,11 @@ package io.github.encryptorcode.example.config;
 import io.github.encryptorcode.example.entities.Session;
 import io.github.encryptorcode.example.entities.User;
 import io.github.encryptorcode.example.services.GoogleAuthenticationProvider;
+import io.github.encryptorcode.handlers.AAuthenticationHandler;
+import io.github.encryptorcode.handlers.ASecurityHandler;
+import io.github.encryptorcode.handlers.ASessionHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
+import io.github.encryptorcode.implementation.security.BaseSecurityHandler;
 import io.github.encryptorcode.implementation.storage.jdbc.JdbcAuthenticationHandler;
 import io.github.encryptorcode.implementation.storage.jdbc.JdbcConfiguration;
 import io.github.encryptorcode.implementation.storage.jdbc.JdbcSessionHandler;
@@ -12,9 +17,6 @@ import io.github.encryptorcode.implementation.storage.redis.RedisConfiguration;
 import io.github.encryptorcode.implementation.storage.redis.RedisSessionHandler;
 import io.github.encryptorcode.implementation.storage.redis.RedisUserHandler;
 import io.github.encryptorcode.service.AuthenticationConfiguration;
-import io.github.encryptorcode.storage.AAuthenticationHandler;
-import io.github.encryptorcode.storage.ASessionHandler;
-import io.github.encryptorcode.storage.AUserHandler;
 import org.jooq.SQLDialect;
 import redis.clients.jedis.Jedis;
 
@@ -64,6 +66,16 @@ public class ServerStartupListener implements ServletContextListener {
             public Jedis getJedis() {
                 return jedis;
             }
+
+            @Override
+            public String getKeyPrefix() {
+                return "hello";
+            }
+
+            @Override
+            public Integer expiryTime() {
+                return 10;
+            }
         };
 
         AUserHandler<User> userHandler = new RedisUserHandler<>(redisConfiguration, User.class, new JdbcUserHandler<Session, User>(jdbcConfiguration) {
@@ -79,11 +91,18 @@ public class ServerStartupListener implements ServletContextListener {
             }
         });
         AAuthenticationHandler authenticationHandler = new RedisAuthenticationHandler(redisConfiguration, new JdbcAuthenticationHandler<>(jdbcConfiguration));
+        ASecurityHandler<User> securityHandler = new BaseSecurityHandler<User>() {
+            @Override
+            protected String getEncryptionKey() {
+                return "base12344321base";
+            }
+        };
 
         AuthenticationConfiguration.init(
                 Collections.singletonList(
                         new GoogleAuthenticationProvider()
                 ),
+                securityHandler,
                 authenticationHandler,
                 sessionHandler,
                 userHandler,

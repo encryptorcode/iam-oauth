@@ -2,7 +2,7 @@ package io.github.encryptorcode.implementation.storage.jdbc;
 
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.storage.AUserHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
 import org.jooq.DSLContext;
 
 import static io.github.encryptorcode.implementation.storage.jdbc.tables.USERS.USERS;

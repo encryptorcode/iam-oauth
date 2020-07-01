@@ -1,4 +1,4 @@
-package io.github.encryptorcode.storage;
+package io.github.encryptorcode.handlers;
 
 import io.github.encryptorcode.entity.AUser;
 import io.github.encryptorcode.exceptions.UserNotAllowedException;

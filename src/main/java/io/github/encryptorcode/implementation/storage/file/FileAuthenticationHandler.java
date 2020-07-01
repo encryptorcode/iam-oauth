@@ -1,7 +1,7 @@
 package io.github.encryptorcode.implementation.storage.file;
 
 import io.github.encryptorcode.entity.AuthenticationDetail;
-import io.github.encryptorcode.storage.AAuthenticationHandler;
+import io.github.encryptorcode.handlers.AAuthenticationHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;

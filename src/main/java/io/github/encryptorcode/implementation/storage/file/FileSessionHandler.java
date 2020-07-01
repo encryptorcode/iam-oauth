@@ -2,7 +2,7 @@ package io.github.encryptorcode.implementation.storage.file;
 
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.storage.ASessionHandler;
+import io.github.encryptorcode.handlers.ASessionHandler;
 
 import java.util.HashMap;
 

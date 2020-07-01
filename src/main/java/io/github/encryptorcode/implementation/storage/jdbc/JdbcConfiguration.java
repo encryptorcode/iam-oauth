@@ -15,31 +15,63 @@ import java.sql.Connection;
  * Configuration class to be extended for setting JDBC configurations
  *
  * @param <Session> Session template
- * @param <User> User template
+ * @param <User>    User template
  */
 public abstract class JdbcConfiguration<Session extends ASession, User extends AUser> {
 
-    // database
+    /**
+     * Connection object required for performing db operations
+     *
+     * @return Connection object
+     */
     protected abstract Connection getConnection();
 
+    /**
+     * {@link SQLDialect} type or database type
+     *
+     * @return database type
+     */
     protected SQLDialect getDialect() {
         return SQLDialect.MYSQL;
     }
 
-    // construction helpers
+    /**
+     * A helper method to construct a User Object
+     *
+     * @return {@link User} construction helper implementation
+     */
     protected abstract ConstructionHelper<User> userConstructionHelper();
 
+    /**
+     * A helper method to construct a Session Object
+     *
+     * @return {@link Session} construction helper implementation
+     */
     protected abstract ConstructionHelper<Session> sessionConstructionHelper();
 
-    // jooq mapper helpers
+    /**
+     * JOOQ helper implementation for {@link io.github.encryptorcode.entity.AuthenticationDetail}
+     *
+     * @return Authentication detail mapper object
+     */
     protected AuthenticationDetailsMapper getAuthenticationDetailsMapper() {
         return authenticationDetailsMapper;
     }
 
+    /**
+     * JOOQ helper implementation for {@link Session}
+     *
+     * @return Session mapper object
+     */
     protected SessionsMapper<Session> getSessionsMapper() {
         return sessionsMapper;
     }
 
+    /**
+     * JOOQ helper implementation for {@link User}
+     *
+     * @return User mapper object
+     */
     protected UsersMapper<User> getUsersMapper() {
         return usersMapper;
     }

@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthenticationController {
 
     private static final AuthenticationService AUTHENTICATION_SERVICE = AuthenticationService.getInstance();
-    private static final AuthenticationConfiguration AUTHENTICATION_CONFIGURATION = AuthenticationConfiguration.getConfiguration();
 
     /**
      * Login page, where user is redirected to provider's consent page
@@ -82,7 +81,7 @@ public class AuthenticationController {
         try {
             return new ModelAndView("redirect:" + AUTHENTICATION_SERVICE.login(request, response, state, code));
         } catch (UserNotAllowedException e) {
-            return new ModelAndView("redirect: " + AUTHENTICATION_CONFIGURATION.homePath);
+            return new ModelAndView("redirect: /");
         }
     }
 }

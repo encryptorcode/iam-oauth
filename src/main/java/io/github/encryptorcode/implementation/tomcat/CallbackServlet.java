@@ -1,10 +1,8 @@
 package io.github.encryptorcode.implementation.tomcat;
 
 import io.github.encryptorcode.exceptions.UserNotAllowedException;
-import io.github.encryptorcode.service.AuthenticationConfiguration;
 import io.github.encryptorcode.service.AuthenticationService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +36,7 @@ public class CallbackServlet extends HttpServlet {
             String redirectLocation = AuthenticationService.getInstance().login(req, resp, code, state);
             resp.sendRedirect(redirectLocation);
         } catch (UserNotAllowedException e) {
-            resp.sendRedirect(AuthenticationConfiguration.getConfiguration().homePath);
+            resp.sendRedirect("/");
         }
     }
 }

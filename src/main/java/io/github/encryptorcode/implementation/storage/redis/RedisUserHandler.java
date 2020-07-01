@@ -2,7 +2,7 @@ package io.github.encryptorcode.implementation.storage.redis;
 
 import io.github.encryptorcode.entity.AUser;
 import io.github.encryptorcode.exceptions.UserNotAllowedException;
-import io.github.encryptorcode.storage.AUserHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
 
 /**
  * Redis implementation of {@link AUserHandler} using Decorator pattern
@@ -12,16 +12,18 @@ import io.github.encryptorcode.storage.AUserHandler;
  */
 public class RedisUserHandler<User extends AUser> extends AUserHandler<User> {
 
-    private static final String REDIS_ROOT_KEY_BY_EMAIL = "users_cache_by_email";
-    private static final String REDIS_ROOT_KEY_BY_ID = "users_cache_by_id";
     private final RedisHandler<User> redisHandlerByEmail;
     private final RedisHandler<User> redisHandlerById;
     private final AUserHandler<User> handler;
 
     public RedisUserHandler(RedisConfiguration configuration, Class<User> clazz, AUserHandler<User> handler) {
+        this(configuration, clazz, handler, "users_cache_by_email", "users_cache_by_id");
+    }
+
+    public RedisUserHandler(RedisConfiguration configuration, Class<User> clazz, AUserHandler<User> handler, String keyForEmailBasedStorage, String keyForIdBasedStorage) {
         this.handler = handler;
-        this.redisHandlerByEmail = new RedisHandler<>(configuration, clazz, REDIS_ROOT_KEY_BY_EMAIL);
-        this.redisHandlerById = new RedisHandler<>(configuration, clazz, REDIS_ROOT_KEY_BY_ID);
+        this.redisHandlerByEmail = new RedisHandler<>(configuration, clazz, keyForEmailBasedStorage);
+        this.redisHandlerById = new RedisHandler<>(configuration, clazz, keyForIdBasedStorage);
     }
 
     @Override

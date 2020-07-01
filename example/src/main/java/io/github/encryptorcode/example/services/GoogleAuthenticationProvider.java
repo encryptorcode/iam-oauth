@@ -9,8 +9,8 @@ import java.time.ZonedDateTime;
 
 public class GoogleAuthenticationProvider extends AOauthProviderImpl {
 
-    private static final String GOOGLE_CLIENT_ID = "";
-    private static final String GOOGLE_CLIENT_SECRET = "";
+    private static final String GOOGLE_CLIENT_ID = System.getProperty("GoogleClientId");
+    private static final String GOOGLE_CLIENT_SECRET = System.getProperty("GoogleClientSecret");
     private static final String SERVER_DOMAIN = "http://localhost:8888";
 
     public GoogleAuthenticationProvider() {

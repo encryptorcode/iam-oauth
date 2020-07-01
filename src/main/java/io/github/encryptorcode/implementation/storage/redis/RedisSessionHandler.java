@@ -2,7 +2,7 @@ package io.github.encryptorcode.implementation.storage.redis;
 
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.storage.ASessionHandler;
+import io.github.encryptorcode.handlers.ASessionHandler;
 
 /**
  * Redis implementation of {@link ASessionHandler} using Decorator pattern
@@ -13,12 +13,15 @@ import io.github.encryptorcode.storage.ASessionHandler;
  */
 public class RedisSessionHandler<Session extends ASession, User extends AUser> extends ASessionHandler<Session, User> {
 
-    private static final String REDIS_ROOT_KEY = "sessions_cache";
     private final RedisHandler<Session> redisHandler;
     private final ASessionHandler<Session, User> handler;
 
     public RedisSessionHandler(RedisConfiguration configuration, Class<Session> clazz, ASessionHandler<Session, User> handler) {
-        this.redisHandler = new RedisHandler<>(configuration, clazz, REDIS_ROOT_KEY);
+        this(configuration, clazz, handler, "sessions_cache");
+    }
+
+    public RedisSessionHandler(RedisConfiguration configuration, Class<Session> clazz, ASessionHandler<Session, User> handler, String key) {
+        this.redisHandler = new RedisHandler<>(configuration, clazz, key);
         this.handler = handler;
     }
 

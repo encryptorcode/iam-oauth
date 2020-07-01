@@ -3,7 +3,7 @@ package io.github.encryptorcode.implementation.storage.jdbc;
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
 import io.github.encryptorcode.entity.AuthenticationDetail;
-import io.github.encryptorcode.storage.AAuthenticationHandler;
+import io.github.encryptorcode.handlers.AAuthenticationHandler;
 import org.jooq.DSLContext;
 
 import static io.github.encryptorcode.implementation.storage.jdbc.tables.AUTHENTICATION_DETAILS.AUTHENTICATION_DETAILS;

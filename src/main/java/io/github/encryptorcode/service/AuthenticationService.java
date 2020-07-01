@@ -2,9 +2,10 @@ package io.github.encryptorcode.service;
 
 import io.github.encryptorcode.entity.*;
 import io.github.encryptorcode.exceptions.UserNotAllowedException;
-import io.github.encryptorcode.storage.AAuthenticationHandler;
-import io.github.encryptorcode.storage.ASessionHandler;
-import io.github.encryptorcode.storage.AUserHandler;
+import io.github.encryptorcode.handlers.AAuthenticationHandler;
+import io.github.encryptorcode.handlers.ASecurityHandler;
+import io.github.encryptorcode.handlers.ASessionHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -150,9 +151,11 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
             }
         }
 
+        ASecurityHandler<User> securityHandler = configuration.securityHandler;
         ASessionHandler<Session, User> sessionHandler = configuration.sessionHandler;
-        String sessionIdentifier = sessionHandler.generateIdentifier(user);
-        int expiryInSeconds = sessionHandler.getSessionExpiration(user);
+        String sessionIdentifier = securityHandler.generateIdentifier(user);
+        String encryptedCookieValue = securityHandler.encryptCookieValue(sessionIdentifier);
+        int expiryInSeconds = securityHandler.getSessionExpiration(user);
 
         ZonedDateTime now = ZonedDateTime.now();
         Session session = sessionHandler.constructSession();
@@ -163,7 +166,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         session.setExpiryTime(now.plusSeconds(expiryInSeconds));
         sessionHandler.createSession(session);
 
-        Cookie cookie = new Cookie(configuration.authenticationCookieName, sessionIdentifier);
+        Cookie cookie = new Cookie(configuration.authenticationCookieName, encryptedCookieValue);
         cookie.setPath("/");
         cookie.setMaxAge(expiryInSeconds);
         response.addCookie(cookie);
@@ -201,8 +204,9 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         AuthenticationThreadLocal.clear();
         AuthenticationThreadLocal.setCurrentRequest(request);
 
-        Cookie authCookie = getAuthCookie(request);
-        if (authCookie == null) {
+        String sessionIdentifier = getAuthCookieValue(request);
+        if (sessionIdentifier == null) {
+            clearSession(request, response);
             return;
         }
 
@@ -210,9 +214,9 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         AUserHandler<User> userHandler = configuration.userHandler;
         AAuthenticationHandler authenticationStorage = configuration.authenticationHandler;
 
-        String sessionIdentifier = authCookie.getValue();
         Session session = sessionHandler.getSession(sessionIdentifier);
         if (session == null) {
+            clearSession(request, response);
             return;
         }
 
@@ -288,6 +292,16 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
 
         String sessionIdentifier = authCookie.getValue();
         configuration.sessionHandler.deleteSession(sessionIdentifier);
+    }
+
+    private String getAuthCookieValue(HttpServletRequest request) {
+        Cookie authCookie = getAuthCookie(request);
+        if (authCookie == null) {
+            return null;
+        }
+
+        ASecurityHandler<User> securityHandler = configuration.securityHandler;
+        return securityHandler.decryptCookieValue(authCookie.getValue());
     }
 
     private Cookie getAuthCookie(HttpServletRequest request) {

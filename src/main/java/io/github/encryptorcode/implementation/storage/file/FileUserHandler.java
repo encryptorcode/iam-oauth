@@ -1,7 +1,7 @@
 package io.github.encryptorcode.implementation.storage.file;
 
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.storage.AUserHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
 
 import java.util.ArrayList;
 import java.util.Optional;

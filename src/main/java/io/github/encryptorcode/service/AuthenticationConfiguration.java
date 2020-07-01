@@ -2,9 +2,10 @@ package io.github.encryptorcode.service;
 
 import io.github.encryptorcode.entity.ASession;
 import io.github.encryptorcode.entity.AUser;
-import io.github.encryptorcode.storage.AAuthenticationHandler;
-import io.github.encryptorcode.storage.ASessionHandler;
-import io.github.encryptorcode.storage.AUserHandler;
+import io.github.encryptorcode.handlers.AAuthenticationHandler;
+import io.github.encryptorcode.handlers.ASecurityHandler;
+import io.github.encryptorcode.handlers.ASessionHandler;
+import io.github.encryptorcode.handlers.AUserHandler;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
      */
     public static <Session extends ASession, User extends AUser> void init(
             List<OauthProvider> oauthProviderList,
+            ASecurityHandler<User> securityHandler,
             AAuthenticationHandler authenticationHandler,
             ASessionHandler<Session, User> sessionHandler,
             AUserHandler<User> userHandler,
@@ -45,6 +47,7 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
     ) {
         configuration = new AuthenticationConfiguration<>(
                 oauthProviderList.stream().collect(Collectors.toMap(OauthProvider::id, provider -> provider)),
+                securityHandler,
                 authenticationHandler,
                 sessionHandler,
                 userHandler,
@@ -59,16 +62,18 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
         return (AuthenticationConfiguration<Session, User>) AuthenticationConfiguration.configuration;
     }
 
-    public final Map<String, OauthProvider> oauthProviders;
-    public final AAuthenticationHandler authenticationHandler;
-    public final ASessionHandler<Session, User> sessionHandler;
-    public final AUserHandler<User> userHandler;
-    public final String homePath;
-    public final String loginPath;
-    public final String authenticationCookieName;
+    final Map<String, OauthProvider> oauthProviders;
+    final ASecurityHandler<User> securityHandler;
+    final AAuthenticationHandler authenticationHandler;
+    final ASessionHandler<Session, User> sessionHandler;
+    final AUserHandler<User> userHandler;
+    final String homePath;
+    final String loginPath;
+    final String authenticationCookieName;
 
     private AuthenticationConfiguration(
             Map<String, OauthProvider> oauthProviders,
+            ASecurityHandler<User> securityHandler,
             AAuthenticationHandler authenticationHandler,
             ASessionHandler<Session, User> sessionHandler,
             AUserHandler<User> userHandler,
@@ -77,6 +82,7 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
             String authenticationCookieName
     ) {
         this.oauthProviders = oauthProviders;
+        this.securityHandler = securityHandler;
         this.authenticationHandler = authenticationHandler;
         this.sessionHandler = sessionHandler;
         this.userHandler = userHandler;
