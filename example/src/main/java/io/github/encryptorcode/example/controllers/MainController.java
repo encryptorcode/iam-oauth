@@ -34,7 +34,7 @@ public class MainController {
     public String login() {
         return "Below given are the list of strategies loaded. Click on any one to login." + NEW_LINE +
                 "<ul>" + NEW_LINE +
-                "<li><a href=\"/login?provider=google\">" + "GOOGLE" + "</a></li>" + NEW_LINE +
+                "<li><a href=\"/login?provider=google\">GOOGLE</a></li>" + NEW_LINE +
                 "</ul>" + NEW_LINE;
     }
 }

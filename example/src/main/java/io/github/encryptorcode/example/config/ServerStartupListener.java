@@ -5,6 +5,7 @@ import io.github.encryptorcode.example.entities.User;
 import io.github.encryptorcode.handlers.AAuthenticationHandler;
 import io.github.encryptorcode.handlers.ASessionHandler;
 import io.github.encryptorcode.handlers.AUserHandler;
+import io.github.encryptorcode.implementation.security.BaseSecurityHandler;
 import io.github.encryptorcode.implementation.storage.file.FileAuthenticationHandler;
 import io.github.encryptorcode.implementation.storage.file.FileSessionHandler;
 import io.github.encryptorcode.implementation.storage.file.FileUserHandler;

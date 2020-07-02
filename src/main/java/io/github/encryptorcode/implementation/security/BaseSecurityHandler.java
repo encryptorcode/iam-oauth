@@ -5,32 +5,21 @@ import io.github.encryptorcode.handlers.ASecurityHandler;
 import io.github.encryptorcode.service.SecurityUtil;
 
 import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BaseSecurityHandler<User extends AUser> extends ASecurityHandler<User> {
 
-    private Cipher encrypt;
-    private Cipher decrypt;
-
-    public BaseSecurityHandler() {
-        initEncryption();
-    }
+    private static final Logger LOGGER = Logger.getLogger(BaseSecurityHandler.class.getName());
+    private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
+    private static final String KEY_TYPE = "AES";
 
     protected abstract String getEncryptionKey();
-
-    protected void initEncryption() {
-        try {
-            SecretKey key = new SecretKeySpec(getEncryptionKey().getBytes(), "AES");
-            this.encrypt = Cipher.getInstance("AES");
-            this.encrypt.init(Cipher.ENCRYPT_MODE, key);
-            this.decrypt = Cipher.getInstance("AES");
-            this.decrypt.init(Cipher.DECRYPT_MODE, key);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to initialise ciphers", e);
-        }
-    }
 
     @Override
     public String generateIdentifier(User user) {
@@ -55,22 +44,35 @@ public abstract class BaseSecurityHandler<User extends AUser> extends ASecurityH
     @Override
     public String encryptCookieValue(String cookieValue) {
         try {
-            byte[] rawBytes = cookieValue.getBytes();
-            byte[] encrypted = this.encrypt.doFinal(rawBytes);
-            return SecurityUtil.bytesToHex(encrypted);
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
-            throw new RuntimeException("Failed to encrypt cookie value.");
+            byte[] ivBytes = SecurityUtil.generateRandomBytes(16);
+            SecretKeySpec key = new SecretKeySpec(getEncryptionKey().getBytes(), KEY_TYPE);
+            IvParameterSpec iv = new IvParameterSpec(ivBytes);
+            Cipher encrypt = Cipher.getInstance(ALGORITHM);
+            encrypt.init(Cipher.ENCRYPT_MODE, key, iv);
+            byte[] rawBytes = SecurityUtil.hexToBytes(cookieValue);
+            byte[] encrypted = encrypt.doFinal(rawBytes);
+            return SecurityUtil.bytesToHex(encrypted) + "-" + SecurityUtil.bytesToHex(ivBytes);
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+            LOGGER.log(Level.SEVERE, "Failed to encrypt the cookie value. So returning null", e);
+            return null;
         }
     }
 
     @Override
     public String decryptCookieValue(String encryptedValue) {
         try {
-            byte[] encrypted = SecurityUtil.hexToBytes(encryptedValue);
-            byte[] rawBytes = this.decrypt.doFinal(encrypted);
-            return new String(rawBytes);
-        } catch (BadPaddingException | IllegalBlockSizeException e) {
-            throw new RuntimeException("Failed to decrypt cookie value.");
+            String[] split = encryptedValue.split("-");
+            byte[] encrypted = SecurityUtil.hexToBytes(split[0]);
+            byte[] ivBytes = SecurityUtil.hexToBytes(split[1]);
+            SecretKey key = new SecretKeySpec(getEncryptionKey().getBytes(), KEY_TYPE);
+            IvParameterSpec iv = new IvParameterSpec(ivBytes);
+            Cipher decrypt = Cipher.getInstance(ALGORITHM);
+            decrypt.init(Cipher.DECRYPT_MODE, key, iv);
+            byte[] rawBytes = decrypt.doFinal(encrypted);
+            return SecurityUtil.bytesToHex(rawBytes);
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | ArrayIndexOutOfBoundsException e) {
+            LOGGER.log(Level.SEVERE, "Failed to decrypt the cookie value. So returning null", e);
+            return null;
         }
     }
 }

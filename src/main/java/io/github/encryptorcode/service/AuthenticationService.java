@@ -42,7 +42,8 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         return authenticationService;
     }
 
-    private final AuthenticationConfiguration<Session, User> configuration = AuthenticationConfiguration.getConfiguration();
+    @SuppressWarnings("unchecked")
+    private final AuthenticationConfiguration<Session, User> configuration = (AuthenticationConfiguration<Session, User>) AuthenticationConfiguration.configuration;
 
     /**
      * A method to get the current user at any given http request context

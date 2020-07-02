@@ -6,19 +6,18 @@ import io.github.encryptorcode.handlers.AAuthenticationHandler;
 import io.github.encryptorcode.handlers.ASecurityHandler;
 import io.github.encryptorcode.handlers.ASessionHandler;
 import io.github.encryptorcode.handlers.AUserHandler;
-import io.github.encryptorcode.implementation.security.ZeroSecurityHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This is the main configuration file, All the core settings for setting up your authentication instance are provided here.
+ * Initialize this class using the {@link AuthenticationInitializer} immediately after your server starts to initialise authentication layer
  *
  * @param <Session> Session template
  * @param <User>    User template
  */
+
 public class AuthenticationConfiguration<Session extends ASession, User extends AUser> {
 
     /**
@@ -65,20 +64,6 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
         this.oauthProviders = new HashMap<>();
     }
 
-    static AuthenticationConfiguration<?, ?> configuration;
-
-    /**
-     * Initialize the {@link AuthenticationConfiguration} using this initializer immediately after your server starts to initialise authentication layer
-     *
-     * @param <Session> Session template
-     * @param <User>    User template
-     */
-
-    static <Session extends ASession, User extends AUser> AuthenticationConfiguration<Session, User> getConfiguration() {
-        //noinspection unchecked
-        return (AuthenticationConfiguration<Session, User>) AuthenticationConfiguration.configuration;
-    }
-
-
+    static AuthenticationConfiguration<? extends ASession, ? extends AUser> configuration;
 
 }
