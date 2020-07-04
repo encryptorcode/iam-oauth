@@ -19,5 +19,5 @@ This implementation uses AES/CBC/PKCS#5 for encryption and decryption with is fa
 
 ---
 
-Prev: [Customise your way to store of Users, Session and AuthenticationDetails](customise-storage.md)
+Prev: [Customise your way to store of Users, Session and AuthenticationDetails](customise-storage.md) <br/>
 Next: [Create handlers for server requests](server-request-handlers.md)

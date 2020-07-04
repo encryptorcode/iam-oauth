@@ -1,9 +1,9 @@
 # Server request  handlers
 Now we have configured all the handlers, We only have to register it to our server and AuthenticationService to be able to use them.
 We have the below things to configure. 
-0. [Initializer](#initializer)
-0. [Interceptor/Filter](#interceptorfilter)
-0. [Controllers/Servlets](#controllersservlets)
+1. [Initializer](#initializer)
+1. [Interceptor/Filter](#interceptorfilter)
+1. [Controllers/Servlets](#controllersservlets)
 
 ## Initializer
 Initializer helps you initialize the all your settings and helps this library function properly. 

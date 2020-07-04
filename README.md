@@ -38,17 +38,17 @@ AuthenticationInitializer.newInstance(Session::new, User::new)
         .initialize();
 ```
 * `GoogleAuthenticationProvider` An implementation for supporting Oauth 2.0 authentication using Google.
-> We also have ready-made implementations for supporting storage with files, db and redis.
+* We also have ready-made implementations for supporting storage with files, db and redis.
 
-For complete examples, check [example folder](example/src/main) given in the repository.
+For complete example, check [example folder](example/src/main) given in the repository.
 
 ## Setting it up
 To completely customising and setting up authentication you can follow the guides below.
-0. [Configure your oauth provider(s)](/wiki/configuring-oauth-provider.md)
-0. [Create your User and Session implementations](/wiki/user-and-session-implementation.md)
-0. [Customise your way to store of Users, Session and AuthenticationDetails](/wiki/customise-storage.md)
-0. [Setup your security for your users](/wiki/security-handler.md)
-0. [Handle server requests](/wiki/server-request-handlers.md)
+1. [Configure your oauth provider(s)](/wiki/configuring-oauth-provider.md)
+1. [Create your User and Session implementations](/wiki/user-and-session-implementation.md)
+1. [Customise your way to store of Users, Session and AuthenticationDetails](/wiki/customise-storage.md)
+1. [Setup your security for your users](/wiki/security-handler.md)
+1. [Handle server requests](/wiki/server-request-handlers.md)
 
 ## API
 **Getting instance of authentication service**

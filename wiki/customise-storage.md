@@ -1,8 +1,8 @@
 # Customise storage for Authentication
 We have in-built storage support for storing with the below
-0. [JDBC/Database](#jdbcdatabase)
-0. [Redis](#redis)
-0. [Files](#files) (Default) (Not recommended for production)
+1. [JDBC/Database](#jdbcdatabase)
+1. [Redis](#redis)
+1. [Files](#files) (Default) (Not recommended for production)
 
 Or you can also write your own implementation by extending [ASessionHandler](../src/main/java/io/github/encryptorcode/handlers/ASessionHandler.java), [AUserHandler](../src/main/java/io/github/encryptorcode/handlers/AUserHandler.java) and [AAuthenticationHandler](../src/main/java/io/github/encryptorcode/handlers/AAuthenticationHandler.java)
 
@@ -124,5 +124,5 @@ AAuthenticationHandler authenticationHandler = new FileAuthenticationHandler("au
 
 ---
 
-Prev: [Create your User and Session implementations](user-and-session-implementation.md) 
+Prev: [Create your User and Session implementations](user-and-session-implementation.md) <br/>
 Next: [Setup your security for your users](security-handler.md)

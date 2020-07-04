@@ -32,5 +32,5 @@ As we already have added annotations to the pre-defined fields, if your project 
 
 ---  
 
-Prev: [Configure your oauth provider(s)](configuring-oauth-provider.md)
+Prev: [Configure your oauth provider(s)](configuring-oauth-provider.md) <br/>
 Next: [Customise your way to store of Users, Session and AuthenticationDetails](customise-storage.md)  
