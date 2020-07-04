@@ -21,6 +21,16 @@ import java.util.Map;
 public class AuthenticationConfiguration<Session extends ASession, User extends AUser> {
 
     /**
+     * helps construct Session object
+     */
+    public ConstructionHelper<Session> sessionConstructor;
+
+    /**
+     * helps construct User object
+     */
+    public ConstructionHelper<User> userConstructor;
+
+    /**
      * list of configured providers
      */
     Map<String, OauthProvider> oauthProviders;
@@ -64,6 +74,6 @@ public class AuthenticationConfiguration<Session extends ASession, User extends 
         this.oauthProviders = new HashMap<>();
     }
 
-    static AuthenticationConfiguration<? extends ASession, ? extends AUser> configuration;
+    public static AuthenticationConfiguration<? extends ASession, ? extends AUser> configuration;
 
 }

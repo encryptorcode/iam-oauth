@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * A ready made implementation for handling storage for {@link Session} using files
  */
-public abstract class FileSessionHandler<Session extends ASession, User extends AUser> extends ASessionHandler<Session, User> {
+public class FileSessionHandler<Session extends ASession, User extends AUser> extends ASessionHandler<Session, User> {
 
     private final HashMap<String, Session> data;
     private final String filePath;

@@ -7,6 +7,9 @@ import io.github.encryptorcode.handlers.ASecurityHandler;
 import io.github.encryptorcode.handlers.ASessionHandler;
 import io.github.encryptorcode.handlers.AUserHandler;
 import io.github.encryptorcode.implementation.security.ZeroSecurityHandler;
+import io.github.encryptorcode.implementation.storage.file.FileAuthenticationHandler;
+import io.github.encryptorcode.implementation.storage.file.FileSessionHandler;
+import io.github.encryptorcode.implementation.storage.file.FileUserHandler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,14 +17,18 @@ import java.util.logging.Logger;
 public class AuthenticationInitializer<Session extends ASession, User extends AUser> {
 
     private static final Logger LOGGER = Logger.getLogger(AuthenticationInitializer.class.getName());
+
+    public static <Session extends ASession, User extends AUser> AuthenticationInitializer<Session, User> newInstance(ConstructionHelper<Session> sessionConstructionHelper, ConstructionHelper<User> userConstructionHelper) {
+        AuthenticationInitializer<Session, User> initializer = new AuthenticationInitializer<>();
+        initializer.configuration.sessionConstructor = sessionConstructionHelper;
+        initializer.configuration.userConstructor = userConstructionHelper;
+        return initializer;
+    }
+
     private final AuthenticationConfiguration<Session, User> configuration;
 
     private AuthenticationInitializer() {
         this.configuration = new AuthenticationConfiguration<>();
-    }
-
-    public static <Session extends ASession, User extends AUser> AuthenticationInitializer<Session, User> newInstance(Class<Session> sessionClass, Class<User> userClass) {
-        return new AuthenticationInitializer<>();
     }
 
     public AuthenticationInitializer<Session, User> addOAuthProvider(OauthProvider provider) {
@@ -65,24 +72,23 @@ public class AuthenticationInitializer<Session extends ASession, User extends AU
     }
 
     public void initialize() {
+        // Mandatory fields not set
         if (this.configuration.oauthProviders.size() == 0) {
             throw new RuntimeException("No oauth providers registered");
         }
+
+        // Setting defaults if not already set
         if (this.configuration.authenticationHandler == null) {
-            throw new RuntimeException("Authentication handler is not set");
+            this.configuration.authenticationHandler = new FileAuthenticationHandler("authentication_details.bin");
         }
         if (this.configuration.sessionHandler == null) {
-            throw new RuntimeException("Session handler is not set");
+            this.configuration.sessionHandler = new FileSessionHandler<>("sessions.bin");
         }
         if (this.configuration.userHandler == null) {
-            throw new RuntimeException("User handler is not set");
+            this.configuration.userHandler = new FileUserHandler<>("users.bin");
         }
         if (this.configuration.securityHandler == null) {
             this.configuration.securityHandler = new ZeroSecurityHandler<>();
-
-        }
-        if (this.configuration.securityHandler instanceof ZeroSecurityHandler) {
-            LOGGER.log(Level.SEVERE, "*** DO NOT USE ZERO SECURITY PROVIDER IN PRODUCTION MODE ***");
         }
         if (this.configuration.homePath == null) {
             this.configuration.homePath = "/";
@@ -96,6 +102,25 @@ public class AuthenticationInitializer<Session extends ASession, User extends AU
             this.configuration.authenticationCookieName = "auth-cookie";
             LOGGER.log(Level.INFO, "Cookie name was not set. Setting to default 'auth-cookie'");
         }
+
+        // Warning messages for settings not recommended for production
+        if (this.configuration.authenticationHandler instanceof FileAuthenticationHandler) {
+            logNotRecommendedClass(this.configuration.authenticationHandler.getClass());
+        }
+        if (this.configuration.sessionHandler instanceof FileSessionHandler) {
+            logNotRecommendedClass(this.configuration.sessionHandler.getClass());
+        }
+        if (this.configuration.userHandler instanceof FileUserHandler) {
+            logNotRecommendedClass(this.configuration.userHandler.getClass());
+        }
+        if (this.configuration.securityHandler instanceof ZeroSecurityHandler) {
+            logNotRecommendedClass(this.configuration.securityHandler.getClass());
+        }
         AuthenticationConfiguration.configuration = this.configuration;
+    }
+
+    private void logNotRecommendedClass(Class<?> clazz) {
+        LOGGER.log(Level.SEVERE, "*** THIS IS AN IMPORTANT WARNING. PLEASE DO NOT IGNORE THE BELOW LOG ***");
+        LOGGER.log(Level.SEVERE, "You are currently using {0}. It is not recommended to use this in production. If this is a production environment, Please consider alternatives.", new String[]{clazz.getSimpleName()});
     }
 }

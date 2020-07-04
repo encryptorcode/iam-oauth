@@ -1,4 +1,4 @@
-package io.github.encryptorcode.example.config;
+package com.example.simpleServer.config;
 
 import io.github.encryptorcode.implementation.spring.AuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"io.github.encryptorcode.example.controllers", "io.github.encryptorcode.implementation.spring"})
+@ComponentScan(basePackages = {"com.example.simpleServer.controllers", "io.github.encryptorcode.implementation.spring"})
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

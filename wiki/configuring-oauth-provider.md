@@ -1,4 +1,10 @@
-package io.github.encryptorcode.example.config;
+# Configuring oauth provider(s)
+There are multiple products that provide oauth. For example: [Google](https://developers.google.com/identity/sign-in/web/sign-in), [Facebook](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/), [GitHub](https://docs.github.com/en/rest/guides/basics-of-authentication) and many more...
+
+To configure logging in your users using oauth you can either manually implement [OauthProvider](../src/main/java/io/github/encryptorcode/service/OauthProvider.java) or extend a ready-made [AOuthProviderImpl](../src/main/java/io/github/encryptorcode/implementation/oauth/AOauthProviderImpl.java).
+Below given is an example for implementation for GoogleAuthenticationProvider.
+```java
+package com.example.simpleServer.config;
 
 import io.github.encryptorcode.entity.OauthToken;
 import io.github.encryptorcode.entity.OauthUser;
@@ -9,8 +15,8 @@ import java.time.ZonedDateTime;
 
 public class GoogleAuthenticationProvider extends AOauthProviderImpl {
 
-    private static final String GOOGLE_CLIENT_ID = System.getProperty("GoogleClientId");
-    private static final String GOOGLE_CLIENT_SECRET = System.getProperty("GoogleClientSecret");
+    private static final String GOOGLE_CLIENT_ID = System.getProperty("google.client.id");
+    private static final String GOOGLE_CLIENT_SECRET = System.getProperty("google.client.secret");
     private static final String SERVER_DOMAIN = "http://localhost:8888";
 
     public GoogleAuthenticationProvider() {
@@ -75,3 +81,8 @@ public class GoogleAuthenticationProvider extends AOauthProviderImpl {
         return OauthToken.error("MISSING_KEYS");
     }
 }
+```
+
+---
+
+Next: [Create your User and Session implementations](user-and-session-implementation.md)

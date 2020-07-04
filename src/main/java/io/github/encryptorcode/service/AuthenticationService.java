@@ -159,7 +159,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         int expiryInSeconds = securityHandler.getSessionExpiration(user);
 
         ZonedDateTime now = ZonedDateTime.now();
-        Session session = sessionHandler.constructSession();
+        Session session = configuration.sessionConstructor.construct();
         session.setIdentifier(sessionIdentifier);
         session.setUserId(user.getUserId());
         session.setProviderId(provider.id());
@@ -259,7 +259,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
 
     private User createUser(OauthUser oauthUser) throws UserNotAllowedException {
         AUserHandler<User> userHandler = configuration.userHandler;
-        User user = userHandler.constructUser();
+        User user = configuration.userConstructor.construct();
         user.setEmail(oauthUser.getEmail());
         user.setName(oauthUser.getName());
         user.setFullName(oauthUser.getFullName());

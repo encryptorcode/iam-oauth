@@ -2,7 +2,6 @@ package io.github.encryptorcode.implementation.tomcat;
 
 import io.github.encryptorcode.service.AuthenticationService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,7 @@ import java.io.IOException;
  *         <servlet-class>io.github.encryptorcode.implementation.tomcat.LogoutServlet</servlet-class>
  *     </servlet>
  *     <servlet-mapping>
- *         <servlet-name>CallbackServlet</servlet-name>
+ *         <servlet-name>LogoutServlet</servlet-name>
  *         <servlet-mapping>/logout</servlet-mapping>
  *     </servlet-mapping>
  * }

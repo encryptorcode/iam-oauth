@@ -11,14 +11,6 @@ import io.github.encryptorcode.entity.AUser;
 public abstract class ASessionHandler<Session extends ASession, User extends AUser> {
 
     /**
-     * Since framework uses an abstract {@link ASession} class,
-     * this method will help this framework to construct a session object.
-     *
-     * @return an empty(default) session object
-     */
-    public abstract Session constructSession();
-
-    /**
      * Get session details based on session identifier
      *
      * @param identifier identifier of the session

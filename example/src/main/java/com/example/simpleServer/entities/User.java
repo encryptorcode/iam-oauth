@@ -1,4 +1,4 @@
-package io.github.encryptorcode.example.entities;
+package com.example.simpleServer.entities;
 
 import io.github.encryptorcode.entity.AUser;
 

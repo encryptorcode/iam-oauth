@@ -36,20 +36,6 @@ public abstract class JdbcConfiguration<Session extends ASession, User extends A
     }
 
     /**
-     * A helper method to construct a User Object
-     *
-     * @return {@link User} construction helper implementation
-     */
-    protected abstract ConstructionHelper<User> userConstructionHelper();
-
-    /**
-     * A helper method to construct a Session Object
-     *
-     * @return {@link Session} construction helper implementation
-     */
-    protected abstract ConstructionHelper<Session> sessionConstructionHelper();
-
-    /**
      * JOOQ helper implementation for {@link io.github.encryptorcode.entity.AuthenticationDetail}
      *
      * @return Authentication detail mapper object
@@ -78,16 +64,12 @@ public abstract class JdbcConfiguration<Session extends ASession, User extends A
 
     // <editor-fold desc="Internal implementation" defaultstate="collapsed">
     private final AuthenticationDetailsMapper authenticationDetailsMapper = new AuthenticationDetailsMapper();
-    private final SessionsMapper<Session> sessionsMapper = new SessionsMapper<>(sessionConstructionHelper());
-    private final UsersMapper<User> usersMapper = new UsersMapper<>(userConstructionHelper());
+    private final SessionsMapper<Session> sessionsMapper = new SessionsMapper<>();
+    private final UsersMapper<User> usersMapper = new UsersMapper<>();
     private final DSLContext context = DSL.using(getConnection(), getDialect());
 
     DSLContext context() {
         return context;
-    }
-
-    public interface ConstructionHelper<T> {
-        T construct();
     }
     // </editor-fold>
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * A ready made implementation for handling storage for {@link User} using files
  */
-public abstract class FileUserHandler<User extends AUser> extends AUserHandler<User> {
+public class FileUserHandler<User extends AUser> extends AUserHandler<User> {
 
     private final ArrayList<User> data;
     private final String filePath;

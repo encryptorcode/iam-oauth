@@ -27,11 +27,6 @@ public class RedisUserHandler<User extends AUser> extends AUserHandler<User> {
     }
 
     @Override
-    public User constructUser() {
-        return handler.constructUser();
-    }
-
-    @Override
     public User getUser(String id) {
         User user = redisHandlerById.get(id);
         if (user == null) {

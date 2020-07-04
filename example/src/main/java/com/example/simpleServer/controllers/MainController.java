@@ -1,7 +1,7 @@
-package io.github.encryptorcode.example.controllers;
+package com.example.simpleServer.controllers;
 
-import io.github.encryptorcode.example.entities.Session;
-import io.github.encryptorcode.example.entities.User;
+import com.example.simpleServer.entities.Session;
+import com.example.simpleServer.entities.User;
 import io.github.encryptorcode.service.AuthenticationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 
-    private static final String NEW_LINE = "<br/>\n";
     private static final AuthenticationService<Session, User> AUTHENTICATION_SERVICE = AuthenticationService.getInstance();
+    private static final String NEW_LINE = "<br/>\n"; // Adding a \n because I am a fan of curl. Are you?
 
     @RequestMapping("/")
     @ResponseBody

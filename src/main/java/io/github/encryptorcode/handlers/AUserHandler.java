@@ -22,14 +22,6 @@ public abstract class AUserHandler<User extends AUser> {
     }
 
     /**
-     * Since framework uses an abstract {@link AUser} class,
-     * this method will help this framework to construct a user object.
-     *
-     * @return an empty(default) user object
-     */
-    public abstract User constructUser();
-
-    /**
      * Get user based on user id.
      *
      * @param id user id

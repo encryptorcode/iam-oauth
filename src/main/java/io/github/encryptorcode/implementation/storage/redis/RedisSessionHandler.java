@@ -26,11 +26,6 @@ public class RedisSessionHandler<Session extends ASession, User extends AUser> e
     }
 
     @Override
-    public Session constructSession() {
-        return handler.constructSession();
-    }
-
-    @Override
     public Session getSession(String identifier) {
         Session session = redisHandler.get(identifier);
         if (session == null) {

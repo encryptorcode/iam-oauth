@@ -1,4 +1,4 @@
-package io.github.encryptorcode.example.config;
+package com.example.simpleServer.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
