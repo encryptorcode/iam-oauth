@@ -6,13 +6,11 @@
 
     <groupId>io.github.encryptorcode</groupId>
     <artifactId>iam-oauth</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <packaging>jar</packaging>
 
     <name>Authentication framework for Web Apps</name>
-    <description>An authentication framework which lets you to configure any type of authentication using OAuth
-        (supports login with Google, Facebook, Github etc.) all with user management in your control.
-    </description>
+    <description>The quickest way to support authentication on your app.</description>
     <url>https://github.com/encryptorcode/iam-oauth</url>
 
     <licenses>
@@ -42,7 +40,7 @@
         <connection>scm:git:git://github.com/encryptorcode/iam-oauth.git</connection>
         <developerConnection>scm:git:https://github.com/encryptorcode/iam-oauth.git</developerConnection>
         <url>https://github.com/encryptorcode/iam-oauth/tree/master</url>
-        <tag>iam-oauth-2.0.0</tag>
+        <tag>iam-oauth-2.0.1</tag>
     </scm>
 
     <dependencies>

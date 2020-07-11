@@ -5,7 +5,7 @@
 [![Code Climate](https://api.codeclimate.com/v1/badges/43de378ed28020dcca28/maintainability)](https://codeclimate.com/github/encryptorcode/iam-oauth/maintainability)
 [![Dependabot](https://badgen.net/dependabot/encryptorcode/iam-oauth/182090705?icon=dependabot)](https://github.com/encryptorcode/iam-oauth)
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.encryptorcode/iam-oauth?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/content/repositories/snapshots/io/github/encryptorcode/iam-oauth/)
-> The Quickest way to support authentication on your app.
+> The quickest way to support authentication on your app.
 
 ## Installation
 #### Maven
@@ -13,16 +13,16 @@
 <dependency>
   <groupId>io.github.encryptorcode</groupId>
   <artifactId>iam-oauth</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 #### Groovy
 ```groovy
-implementation 'io.github.encryptorcode:iam-oauth:2.0.0'
+implementation 'io.github.encryptorcode:iam-oauth:2.0.1'
 ```
 #### Kotlin DSL
 ```groovy
-implementation("io.github.encryptorcode:iam-oauth:2.0.0")
+implementation("io.github.encryptorcode:iam-oauth:2.0.1")
 ```
 
 ## What?

@@ -188,7 +188,8 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
      * @return url to redirect the user to after successful log out
      */
     public String logout(HttpServletRequest request, HttpServletResponse response, String redirectPath) {
-        clearSession(request, response);
+        String sessionIdentifier = getAuthCookieValue(request);
+        clearSession(sessionIdentifier, response);
         if (redirectPath != null) {
             return redirectPath;
         }
@@ -207,7 +208,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
 
         String sessionIdentifier = getAuthCookieValue(request);
         if (sessionIdentifier == null) {
-            clearSession(request, response);
+            clearSession(null, response);
             return;
         }
 
@@ -217,12 +218,12 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
 
         Session session = sessionHandler.getSession(sessionIdentifier);
         if (session == null) {
-            clearSession(request, response);
+            clearSession(sessionIdentifier, response);
             return;
         }
 
         if (isTimePassed(session.getExpiryTime())) {
-            clearSession(request, response);
+            clearSession(sessionIdentifier, response);
             return;
         }
 
@@ -232,7 +233,7 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
             OauthProvider provider = configuration.oauthProviders.get(session.getProviderId());
             OauthToken token = provider.regenerateToken(detail.getRefreshToken());
             if (token.getStatus() == OauthToken.Status.INVALID_CODE) {
-                clearSession(request, response);
+                clearSession(sessionIdentifier, response);
                 return;
             }
 
@@ -281,18 +282,14 @@ public class AuthenticationService<Session extends ASession, User extends AUser>
         configuration.authenticationHandler.create(authenticationDetail);
     }
 
-    private void clearSession(HttpServletRequest request, HttpServletResponse response) {
-        Cookie authCookie = getAuthCookie(request);
-
-        if (authCookie == null) {
-            return;
-        }
-
+    private void clearSession(String identifier, HttpServletResponse response) {
+        Cookie authCookie = new Cookie(configuration.authenticationCookieName, "");
         authCookie.setMaxAge(0);
         response.addCookie(authCookie);
 
-        String sessionIdentifier = authCookie.getValue();
-        configuration.sessionHandler.deleteSession(sessionIdentifier);
+        if (identifier != null) {
+            configuration.sessionHandler.deleteSession(identifier);
+        }
     }
 
     private String getAuthCookieValue(HttpServletRequest request) {
