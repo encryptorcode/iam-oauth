@@ -1,0 +1,40 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: redis.clients:jedis
+    versions:
+    - 3.5.1
+    - 3.5.2
+  - dependency-name: org.apache.tomcat:tomcat-servlet-api
+    versions:
+    - 10.0.0
+    - 10.0.2
+    - 10.0.4
+  - dependency-name: org.jooq:jooq
+    versions:
+    - 3.14.6
+    - 3.14.7
+    - 3.14.8
+- package-ecosystem: maven
+  directory: "/example"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: redis.clients:jedis
+    versions:
+    - 3.5.1
+    - 3.5.2
+  - dependency-name: org.jooq:jooq
+    versions:
+    - 3.14.6
+    - 3.14.7
+    - 3.14.8
+  - dependency-name: org.postgresql:postgresql
+    versions:
+    - 42.2.19
